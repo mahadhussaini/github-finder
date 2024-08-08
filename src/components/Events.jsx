@@ -5,20 +5,37 @@ import { format } from "timeago.js";
 const Events = ({ data }) => {
   return (
     <>
-      {data?.map((ev, i) => (
-        <div key={i} className="flex gap-x-4 items-center">
-          <Link to={`/${ev.actor?.login}`}>
-            <img src={ev.actor?.avatar_url} className="w-16 rounded-full" />
-          </Link>
-          <h1 className="break-words">
-            {ev?.actor?.login} {ev?.type}
-            <br />
-            {ev?.repo?.name}
-            <br />
-            <span className="text-sm">{format(ev?.created_at)}</span>
-          </h1>
-        </div>
-      ))}
+      {data?.map((event, index) => {
+        const { actor, type, repo, created_at } = event;
+        const { login, avatar_url } = actor || {};
+
+        return (
+          <div key={index} className="flex gap-x-4 items-center mb-4">
+            {login && (
+              <Link to={`/${login}`}>
+                <img
+                  src={avatar_url}
+                  alt={`${login}'s avatar`}
+                  className="w-16 h-16 rounded-full object-cover"
+                />
+              </Link>
+            )}
+            <div className="flex flex-col">
+              <h1 className="font-semibold">
+                {login && <span>{login}</span>} {type && <span>{type}</span>}
+              </h1>
+              {repo?.name && (
+                <p className="text-sm text-gray-600">{repo.name}</p>
+              )}
+              {created_at && (
+                <span className="text-xs text-gray-500">
+                  {format(created_at)}
+                </span>
+              )}
+            </div>
+          </div>
+        );
+      })}
     </>
   );
 };

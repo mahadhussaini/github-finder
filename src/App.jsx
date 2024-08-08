@@ -6,12 +6,12 @@ import Users from "./Routes/Users";
 
 const App = () => {
   return (
-    <div className="min-h-screen bg-black ">
-      <div className="container text-gray-200 py-3">
+    <div className="min-h-screen bg-black text-gray-200">
+      <div className="container mx-auto py-3">
         <Logo />
         <Routes>
-          <Route path="/" element={<Users />}></Route>
-          <Route path="/:name" element={<UserInfo />}></Route>
+          <Route path="/" element={<Users />} />
+          <Route path="/:name" element={<UserInfo />} />
         </Routes>
       </div>
     </div>
